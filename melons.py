@@ -15,6 +15,9 @@ class AbstractMelonOrder(object):
         self.order_type = order_type
         self.tax = tax
 
+        if self.qty > 100:
+            raise TooManyMelonsError("No more than 100 melons!")
+
     def get_base_price(self):
         """Returns a random base price integer"""
 
@@ -47,6 +50,11 @@ class AbstractMelonOrder(object):
         """Return the country code."""
 
         return self.country_code
+
+
+class TooManyMelonsError(ValueError):
+    """Handles errors for orders exceeding 100 melons"""
+    pass
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
